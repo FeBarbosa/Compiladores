@@ -16,7 +16,7 @@ MainWindow::~MainWindow()
 }
 
 
- /*
+ /* TABLE
      MainWindow::MainWindow(QWidget *parent):
      QMainWindow(parent), m_pTableWidget(NULL)
 {

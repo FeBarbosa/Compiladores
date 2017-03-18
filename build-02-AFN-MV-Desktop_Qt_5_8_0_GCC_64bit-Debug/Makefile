@@ -997,7 +997,8 @@ mainwindow.o: ../02-AFN-MV/mainwindow.cpp ../02-AFN-MV/mainwindow.h \
 expreregular.o: ../02-AFN-MV/expreregular.cpp ../02-AFN-MV/expreregular.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o expreregular.o ../02-AFN-MV/expreregular.cpp
 
-nfa.o: ../02-AFN-MV/nfa.cpp ../02-AFN-MV/nfa.h
+nfa.o: ../02-AFN-MV/nfa.cpp ../02-AFN-MV/nfa.h \
+		../02-AFN-MV/estado.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o nfa.o ../02-AFN-MV/nfa.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
