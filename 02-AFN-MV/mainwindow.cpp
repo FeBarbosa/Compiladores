@@ -16,6 +16,18 @@ MainWindow::~MainWindow()
 }
 
 
+ /*
+     MainWindow::MainWindow(QWidget *parent):
+     QMainWindow(parent), m_pTableWidget(NULL)
+{
+     m_pTableWidget = new QTableWidget(this);
+     m_pTableWidget->setRowCount(10);
+     m_pTableWidget->setColumnCount(3);
+     m_TableHeader<<"#"<<"Name"<<"Text";
+     m_pTableWidget->setHorizontalHeaderLabels(m_TableHeader);
+     m_pTableWidget->verticalHeader()->setVisible(false);
+}
+*/
 
 // Gerar a pós-fixa e mostrar na tela -------------------------------------------------------------
 void MainWindow::on_gerarPosFixa_clicked()

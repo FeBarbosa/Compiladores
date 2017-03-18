@@ -20,8 +20,16 @@ private slots:
 
     void on_gerarAFN_clicked();
 
+    // void cellSelected(int nRow, int nCol);
+
 private:
     Ui::MainWindow *ui;
+
+    /*
+        QTableWidget* m_pTableWidget;
+
+        QStringList m_TableHeader;
+    */
 };
 
 #endif // MAINWINDOW_H
