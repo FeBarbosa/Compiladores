@@ -1,0 +1,37 @@
+# depslib dependency file v1.0
+1478375370 source:/media/felipe/Reservation/Estudos/UFT/6º Período/Compiladores/trabalho2/dfa.cpp
+	"dfa.h"
+
+1478375202 /media/felipe/Reservation/Estudos/UFT/6º Período/Compiladores/trabalho2/dfa.h
+	"estado.h"
+	"nfa.h"
+
+1477336863 /media/felipe/Reservation/Estudos/UFT/6º Período/Compiladores/trabalho2/estado.h
+
+1478372451 /media/felipe/Reservation/Estudos/UFT/6º Período/Compiladores/trabalho2/nfa.h
+	<string>
+	<vector>
+	<deque>
+	<stack>
+	<unordered_map>
+	<unordered_set>
+	<algorithm>
+	<assert.h>
+	<iostream>
+	"estado.h"
+
+1478898637 source:/media/felipe/Reservation/Estudos/UFT/6º Período/Compiladores/trabalho2/main.cpp
+	<iostream>
+	"posFix.h"
+	"nfa.h"
+	"dfa.h"
+
+1474650979 /media/felipe/Reservation/Estudos/UFT/6º Período/Compiladores/trabalho2/posFix.h
+	<string>
+
+1478373925 source:/media/felipe/Reservation/Estudos/UFT/6º Período/Compiladores/trabalho2/nfa.cpp
+	"nfa.h"
+
+1478371926 source:/media/felipe/Reservation/Estudos/UFT/6º Período/Compiladores/trabalho2/posFix.cpp
+	"posFix.h"
+
