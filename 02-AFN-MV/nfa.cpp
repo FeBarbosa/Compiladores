@@ -10,7 +10,7 @@ NFATable NFA::base(uchar c)
 
     estadoInicial->transicoes.emplace(c, estadoFinal);
 
-    return NFATable(estadoInicial, estadoFinal);
+    return NFATable{estadoInicial, estadoFinal};
 }
 
 //------------------------------------------------------------------------

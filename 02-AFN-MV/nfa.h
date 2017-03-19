@@ -24,7 +24,7 @@ class NFAEstado: public estado
 {
     public:
     using estado::estado; // Permite o uso de apenas "estado" como construtor dentro deste escopo
-    std::unordered_multimap<uchar, NFAEstado*>transicoes; //Tabela de Transicoes
+    std::unordered_multimap<uchar, NFAEstado*> transicoes; //Tabela de Transicoes
 };
 
 //---------------------------------------------------------------
