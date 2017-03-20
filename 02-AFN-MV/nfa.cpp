@@ -98,6 +98,7 @@ void NFA::criarNFA()
 
     nfa = std::move(NFAPilha.front());
     nfa.back()->estadoFinal = true;
+    Alfabeto.insert(EPSILON);
 }
 using namespace std;
 

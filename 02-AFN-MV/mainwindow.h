@@ -6,7 +6,11 @@
 namespace Ui {
 class MainWindow;
 }
-
+//change
+class QAction;
+class QTableWidget;
+class QTableWidgetItem;
+//
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -14,22 +18,27 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+/*change
+public slots:
+    void averageItems();
+    void sumItems();
+end*/
 
 private slots:
     void on_gerarPosFixa_clicked();
 
     void on_gerarAFN_clicked();
 
-    // void cellSelected(int nRow, int nCol);
-
 private:
+    //change
+    void setupTableItems();
+
+    QAction *removeAction;
+    QTableWidget *tableWidget;
+    QTableWidgetItem *tableWidgetItem;
+    //
     Ui::MainWindow *ui;
 
-    /*
-        QTableWidget* m_pTableWidget;
-
-        QStringList m_TableHeader;
-    */
 };
 
 #endif // MAINWINDOW_H

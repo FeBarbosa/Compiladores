@@ -2,9 +2,11 @@
 #include "ui_mainwindow.h"
 #include "expreregular.h"
 #include <iostream>
+#include <nfa.h>
+#include <sstream>
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
+    QMainWindow(parent), tableWidget(NULL),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -15,19 +17,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
- /* TABLE
-     MainWindow::MainWindow(QWidget *parent):
-     QMainWindow(parent), m_pTableWidget(NULL)
-{
-     m_pTableWidget = new QTableWidget(this);
-     m_pTableWidget->setRowCount(10);
-     m_pTableWidget->setColumnCount(3);
-     m_TableHeader<<"#"<<"Name"<<"Text";
-     m_pTableWidget->setHorizontalHeaderLabels(m_TableHeader);
-     m_pTableWidget->verticalHeader()->setVisible(false);
-}
-*/
 
 // Gerar a pós-fixa e mostrar na tela -------------------------------------------------------------
 void MainWindow::on_gerarPosFixa_clicked()
@@ -59,7 +48,86 @@ void MainWindow::on_gerarPosFixa_clicked()
 
 
 // Gera o AFN-& a partir da expressão pós-fixa-----------------------------------------------------
+
 void MainWindow::on_gerarAFN_clicked()
 {
+    NFA automato = NFA(ui->saida->text().toStdString());
+    automato.criarNFA();
+
+    //inicializando a tabela
+     int i =1, j=1;
+    tableWidget = new QTableWidget(this);
+    int colCount = automato.Alfabeto.size()+1;
+    int rCount = automato.nfa.size()+1;
+    ui->tableWidget->setColumnCount(colCount);
+    ui->tableWidget->setRowCount(rCount);
+    ui->tableWidget->verticalHeader()->setVisible(false);
+    ui->tableWidget->horizontalHeader()->setVisible(false);
+    // Preenchendo a primeira linha
+    QStringList l;
+
+    l <<" ";
+    while(colCount>0){
+        if(colCount==2){
+             l= l <<"&";
+             colCount=0;
+        }
+        else {
+            l = l << "Simbolo";
+            colCount=colCount-1;
+        }
+    }
+    //ui->tableWidget->setHorizontalHeaderLabels(l);
+
+
+   typedef std::unordered_multimap<uchar, NFAEstado*> trans;
+
+   string str;
+   //stringstream auxParaConverter;
+
+   //Cabeçalho da tabela
+   for(auto it2 = automato.Alfabeto.begin(); it2 != automato.Alfabeto.end(); it2++)
+   {
+       str = "";
+       str.push_back((*it2));
+       std::cout << (*it2) << std::endl;
+       ui->tableWidget->setItem(0,j, new QTableWidgetItem(QString::fromStdString(str)));
+       j++;
+   }
+
+   i = 1;
+
+    //Preenchimento da tabela
+    for(auto it = automato.nfa.begin(); it !=automato.nfa.end(); it++) // Percorre estados
+        {
+            str = "q";
+            str += to_string((*it)->id);
+            ui->tableWidget->setItem(i,0, new QTableWidgetItem(QString::fromStdString(str)));
+
+            j = 1;
+
+            for(auto it2 = automato.Alfabeto.begin(); it2 != automato.Alfabeto.end(); it2++) // Percorre alfabeto para cada estado
+            {
+                str = "{";
+
+                auto range = (*it)->transicoes.equal_range((*it2));
+                for_each(
+                    range.first,
+                    range.second,
+                    [&str](trans::value_type& x){str += "q" + to_string(x.second->id) + " ";}
+                );
+
+                str += "}";
+
+                ui->tableWidget->setItem(i,j, new QTableWidgetItem(QString::fromStdString(str)));
+
+                j++;
+            }
+
+            i++;
+
+
+//            cout << endl;
+   }
 
 }
