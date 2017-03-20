@@ -54,28 +54,21 @@ void NFA::uniao(NFATable& t1, NFATable& t2)
     t1.insert(t1.end(), t2.begin(), t2.end());
 }
 
-//-------Verifica se um caracter é um símbolo------------------------------------
-bool NFA::operador(char c)
-{
-    if(c == '*' || c =='+' || c =='.')
-        return true;
-
-    return false;
-}
 
 // Cria o NFA--------------------------------------------------------------------
 void NFA::criarNFA()
 {
     std::vector<NFATable> NFAPilha;
+    std::unordered_set<uchar> AlfabetoAux;
     uchar c;
 
     for(int i = 0; i < (int)strNFA.length(); i++)
     {
         c = strNFA[i];
-        if(!operador(c))
+        if(!ExpreRegular::operador(c))
         {
             NFAPilha.push_back(base(c));  //Cria e empilha um autômato com a base do símbolo c
-            Alfabeto.insert(c);
+            AlfabetoAux.insert(c);
         }
         else
         {
@@ -98,7 +91,10 @@ void NFA::criarNFA()
 
     nfa = std::move(NFAPilha.front());
     nfa.back()->estadoFinal = true;
-    Alfabeto.insert(EPSILON);
+
+    Alfabeto.insert(Alfabeto.begin(), AlfabetoAux.begin(), AlfabetoAux.end());
+    std::sort(Alfabeto.begin(), Alfabeto.end());
+    Alfabeto.push_back(EPSILON);
 }
 using namespace std;
 

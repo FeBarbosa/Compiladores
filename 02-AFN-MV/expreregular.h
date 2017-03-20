@@ -29,10 +29,10 @@ public:
     ExpreRegular(string);                     /** CONSTRUTOR */
     int infParaPos();                   /** Converte uma expressão na fora infixa para posfixa */
     bool verificarExpressaoPosfixa();   /** Verifica se uma expressão posfixa é válida */
+    static bool operador(char);                /** Verifica se um caracter é um operador */
 
 private:
     bool precedencia(char, char);       /** Verifica a precedencia entre 2 operadores */
-    bool operador(char);                /** Verifica se um caracter é um operador */
 
 };
 

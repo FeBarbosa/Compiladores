@@ -12,6 +12,7 @@
 #include <iostream>
 
 #include "estado.h"
+#include "expreregular.h"
 
 #define EPSILON '&'
 
@@ -44,13 +45,12 @@ public:
     void kleene(NFATable&);
     void uniao(NFATable&, NFATable&);
     void conca(NFATable&, NFATable&);
-    bool operador(char);
     void show();
 
     ///ATRIBUTOS --------------------------------------------------
     std::string strNFA;
     int idAtual;
-    std::unordered_set<uchar> Alfabeto;   /* Alfabeto */
+    std::vector<uchar> Alfabeto;   /* Alfabeto */
     NFATable nfa;                         /* O Autômato */
 };
 

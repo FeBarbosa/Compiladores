@@ -47,8 +47,10 @@ void MainWindow::on_gerarPosFixa_clicked()
 }
 
 
-// Gera o AFN-& a partir da expressão pós-fixa-----------------------------------------------------
 
+typedef std::unordered_multimap<uchar, NFAEstado*> trans;
+
+// Gera o AFN-& a partir da expressão pós-fixa-----------------------------------------------------
 void MainWindow::on_gerarAFN_clicked()
 {
     NFA automato = NFA(ui->saida->text().toStdString());
@@ -79,9 +81,6 @@ void MainWindow::on_gerarAFN_clicked()
     }
     //ui->tableWidget->setHorizontalHeaderLabels(l);
 
-
-   typedef std::unordered_multimap<uchar, NFAEstado*> trans;
-
    string str;
    //stringstream auxParaConverter;
 
@@ -100,12 +99,22 @@ void MainWindow::on_gerarAFN_clicked()
     //Preenchimento da tabela
     for(auto it = automato.nfa.begin(); it !=automato.nfa.end(); it++) // Percorre estados
         {
-            str = "q";
+            if(it == automato.nfa.begin())
+                str = "->q";
+            else
+                str = "q";
+
             str += to_string((*it)->id);
+
+            if((*it)->estadoFinal)
+                str += "*";
+
             ui->tableWidget->setItem(i,0, new QTableWidgetItem(QString::fromStdString(str)));
 
             j = 1;
 
+
+            //Preenchimento das células
             for(auto it2 = automato.Alfabeto.begin(); it2 != automato.Alfabeto.end(); it2++) // Percorre alfabeto para cada estado
             {
                 str = "{";
@@ -125,9 +134,6 @@ void MainWindow::on_gerarAFN_clicked()
             }
 
             i++;
-
-
-//            cout << endl;
    }
 
 }
