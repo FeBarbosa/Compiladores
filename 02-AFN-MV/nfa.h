@@ -46,6 +46,7 @@ public:
     void uniao(NFATable&, NFATable&);
     void conca(NFATable&, NFATable&);
     void show();
+    void renomeiaEstados(NFATable&, int);
 
     ///ATRIBUTOS --------------------------------------------------
     std::string strNFA;

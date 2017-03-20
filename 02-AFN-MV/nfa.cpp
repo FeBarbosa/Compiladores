@@ -76,14 +76,17 @@ void NFA::criarNFA()
             {
                 case '*':
                     kleene(NFAPilha.back());
+                    renomeiaEstados(NFAPilha.back(), 0);
                     break;
                 case '.':
                     conca(*(NFAPilha.rbegin()+1), NFAPilha.back());
                     NFAPilha.pop_back();
+                    renomeiaEstados(NFAPilha.back(), 0);
                     break;
                 case '+':
                     uniao(*(NFAPilha.rbegin() + 1), NFAPilha.back());
                     NFAPilha.pop_back();
+                    renomeiaEstados(NFAPilha.back(), 0);
                     break;
             }
         }
@@ -93,9 +96,21 @@ void NFA::criarNFA()
     nfa.back()->estadoFinal = true;
 
     Alfabeto.insert(Alfabeto.begin(), AlfabetoAux.begin(), AlfabetoAux.end());
+
     std::sort(Alfabeto.begin(), Alfabeto.end());
     Alfabeto.push_back(EPSILON);
 }
+
+//-----------------------------------------------------------------------------------
+void NFA::renomeiaEstados(NFATable& t, int idAtual)
+{
+    for(auto it = t.begin(); it != t.end(); ++it)
+    {
+        (*it)->id = idAtual;
+        idAtual++;
+    }
+}
+
 using namespace std;
 
 void NFA::show()
