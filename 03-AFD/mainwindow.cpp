@@ -36,7 +36,6 @@ void MainWindow::on_gerarPosFixa_clicked()
         ui->mensagem->setText(QString::fromStdString("ERRO: Operador sem operando!"));
     else
     {
-        std::cout << nt.posFix << endl;
         if(!nt.verificarExpressaoPosfixa())
             ui->mensagem->setText(QString::fromStdString("Expressão Inválida"));
         else
@@ -48,8 +47,6 @@ void MainWindow::on_gerarPosFixa_clicked()
 }
 
 
-
-typedef std::unordered_multimap<uchar, NFAEstado*> trans;
 
 // Gera o AFN-& a partir da expressão pós-fixa-----------------------------------------------------
 void MainWindow::on_gerarAFN_clicked()
@@ -90,7 +87,7 @@ void MainWindow::on_gerarAFN_clicked()
    {
        str = "";
        str.push_back((*it2));
-       std::cout << (*it2) << std::endl;
+       //std::cout << (*it2) << std::endl;
        ui->tableWidget->setItem(0,j, new QTableWidgetItem(QString::fromStdString(str)));
        j++;
    }
@@ -144,11 +141,18 @@ void MainWindow::on_gerarAFD_clicked()
     NFA automato = NFA(ui->saida->text().toStdString());
     automato.criarNFA();
 
+    DFA automato2 = DFA(automato.nfa, automato.Alfabeto);
+
+    for(auto it = automato2.nfa.begin(); it != automato2.nfa.end(); ++it)
+    {
+        if(!((*it)->fecho))
+            automato2.calculaFecho(*(it));
+    }
     //inicializando a tabela
      int i =0;
     tableWidget_3 = new QTableWidget(this);
     int colCount = 2;
-    int rCount = automato.nfa.size();
+    int rCount = automato2.fechos.size();
     ui->tableWidget_3->setColumnCount(colCount);
     ui->tableWidget_3->setRowCount(rCount);
     ui->tableWidget_3->verticalHeader()->setVisible(false);
@@ -156,39 +160,80 @@ void MainWindow::on_gerarAFD_clicked()
     string str;
     //stringstream auxParaConverter;
     //Preenchimento da tabela
-    for(auto it = automato.nfa.begin(); it !=automato.nfa.end(); it++) // Percorre estados
+//    for(auto it = automato.nfa.begin(); it !=automato.nfa.end(); it++) // Percorre estados
+//        {
+//            if(it == automato.nfa.begin())
+//                str = "Fecho-& ->q";
+//            else
+//                str = "Fecho-& q";
+
+//            str += to_string((*it)->id);
+
+//            if((*it)->estadoFinal)
+//                str += "*";
+
+//            ui->tableWidget_3->setItem(i,0, new QTableWidgetItem(QString::fromStdString(str)));
+
+//            //Preenchimento das células - usar função epsilonFecho de DFA
+//            for(auto it2 = ; it2 !=automato.nfa.end(); it2++) // Percorre alfabeto para cada estado
+//            {
+//                str = "{";
+
+//                auto range = (*it)->transicoes.equal_range((EPSILON));
+//                for_each(
+//                    range.first,
+//                    range.second,
+//                    [&str](trans::value_type& x){str += "q" + to_string(x.second->id) + " ";}
+//                );
+//               str += to_string(DFA.calculaFecho((*it2)->id));
+
+//                str += "}";
+
+
+//                ui->tableWidget_3->setItem(i,1, new QTableWidgetItem(QString::fromStdString(str)));
+
+//            }
+
+//            i++;
+//   }
+
+
+    for(auto it = automato2.fechos.begin(); it != automato2.fechos.end(); ++it)
+    {
+
+//        if(it == automato2.nfa.begin()+1)
+//            str = "Fecho-& ->q";
+//        else
+            str = "Fecho-& q";
+
+        str += to_string((*((*it).first)).id);
+
+//        if((*it)->estadoFinal)
+//            str += "*";
+
+        ui->tableWidget_3->setItem(i,0, new QTableWidgetItem(QString::fromStdString(str)));
+
+        str = "{";
+
+        for(auto it2 = (*it).second.begin(); it2 != (*it).second.end(); ++it2)
         {
-            if(it == automato.nfa.begin())
-                str = "Fecho-& ->q";
-            else
-                str = "Fecho-& q";
+            str += "q" + to_string((*it2)->id) + " ";
+        }
 
-            str += to_string((*it)->id);
+//        auto range = (*it2)
+//        for_each(
+//            range.first,
+//            range.second,
+//            [&str](trans::value_type& x){str += "q" + to_string(x.second->id) + " ";}
+//        );
 
-            if((*it)->estadoFinal)
-                str += "*";
+        str += "}";
 
-            ui->tableWidget_3->setItem(i,0, new QTableWidgetItem(QString::fromStdString(str)));
+        cout << str << endl;
 
-            //Preenchimento das células - usar função epsilonFecho de DFA
-            for(auto it2 = automato.Alfabeto.begin(); it2 != automato.Alfabeto.end(); it2++) // Percorre alfabeto para cada estado
-            {
-                str = "{";
+        ui->tableWidget_3->setItem(i,1, new QTableWidgetItem(QString::fromStdString(str)));
 
-                auto range = (*it)->transicoes.equal_range((*it2));
-                for_each(
-                    range.first,
-                    range.second,
-                    [&str](trans::value_type& x){str += "q" + to_string(x.second->id) + " ";}
-                );
-
-                str += "}";
-
-                ui->tableWidget_3->setItem(i,1, new QTableWidgetItem(QString::fromStdString(str)));
-
-            }
-
-            i++;
-   }
+        i++;
+    }
 
 }

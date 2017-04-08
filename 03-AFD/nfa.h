@@ -31,6 +31,8 @@ class NFAEstado: public estado
 //---------------------------------------------------------------
 using NFATable = std::deque<NFAEstado*>; //Funciona com um #DEFINE
 
+typedef std::unordered_multimap<uchar, NFAEstado*> trans;
+
 //---------------------------------------------------------------
 class NFA
 {
