@@ -3,7 +3,7 @@
 # Project created by QtCreator 2017-04-01T11:52:44
 #
 #-------------------------------------------------
-
+CONFIG += c++14
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -24,8 +24,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    expreregular.cpp \
+    nfa.cpp \
+    dfa.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    estado.h \
+    expreregular.h \
+    nfa.h \
+    dfa.h
 
 FORMS    += mainwindow.ui
