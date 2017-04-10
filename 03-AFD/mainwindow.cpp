@@ -155,6 +155,7 @@ void MainWindow::on_gerarAFD_clicked()
     int rCount = automato2.fechos.size();
     ui->tableWidget_3->setColumnCount(colCount);
     ui->tableWidget_3->setRowCount(rCount);
+    ui->tableWidget_3->horizontalHeader()->setResizeContentsPrecision(QHeaderView::ResizeToContents);
     ui->tableWidget_3->verticalHeader()->setVisible(false);
     ui->tableWidget_3->horizontalHeader()->setVisible(false);
     string str;

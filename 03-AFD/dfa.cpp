@@ -49,7 +49,7 @@ std::vector<NFAEstado*> DFA::calculaFecho(NFAEstado* estadoAtual)
      std::vector<NFAEstado*> listaEstados;
      listaEstados.push_back(estadoAtual);
 
-     std::cout << listaEstados[0]->id << endl;
+     //std::cout << listaEstados[0]->id << endl;
 
     auto it = estadoAtual->transicoes.equal_range(EPSILON);
 
