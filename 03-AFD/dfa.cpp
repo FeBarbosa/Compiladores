@@ -6,66 +6,34 @@ DFA::DFA(const NFATable& nfa, const std::vector<uchar>& Alfabeto): nfa(nfa), Alf
 
 //--------------------------------------------------------------------------
 
-//std::unordered_set<NFAEstado*> DFA::epsilonFecho(std::unordered_set<NFAEstado*> setNFA)
-//{
-//    std::unordered_set<NFAEstado*> result(setNFA);
-
-//    std::stack<NFAEstado*> pilhaEstados;
-
-//    for(auto estado : setNFA)
-//        pilhaEstados.push(estado);
-
-//    while (pilhaEstados.size())
-//    {
-//        NFAEstado* estado = pilhaEstados.top();
-//        pilhaEstados.pop();
-
-//        auto range = estado->transicoes.equal_range(EPSILON);
-
-//        std::for_each(range.first, range.second, [&](const auto& p)
-//        {
-//            if(result.find(p.second) == result.end())
-//             {
-//                result.insert(p.second);
-//                pilhaEstados.push(p.second);
-//            }
-//        });
-//    }
-
-//    return result;
-//}
-
-std::vector<NFAEstado*> DFA::calculaFecho(NFAEstado* estadoAtual)
+std::unordered_set<NFAEstado*> DFA::calculaFecho(NFAEstado* estadoAtual)
 {
     if(estadoAtual->fecho)
     {
-        std::unordered_map<NFAEstado*, std::vector<NFAEstado*>>::const_iterator itFind = this->fechos.find(estadoAtual);
+        auto itFind = this->fechos.find(estadoAtual);
         return itFind->second;
     }
 
     estadoAtual->fecho = true;
 
-//    std::vector<NFAEstado*> listaEstados = {estadoAtual};
-     std::vector<NFAEstado*> listaEstados;
-     listaEstados.push_back(estadoAtual);
-
-     //std::cout << listaEstados[0]->id << endl;
+    //insere em fechos {fecho(qi) = {qi}}
+    std::unordered_set<NFAEstado*> listaEstados;
+    listaEstados.insert(estadoAtual);
 
     auto it = estadoAtual->transicoes.equal_range(EPSILON);
-
-    //std::cout << "BBB" << endl;
 
     for_each(
         it.first,
         it.second,
         [&](trans::value_type& x){
+           //itFind->second.insert(x.second);
            auto aux = calculaFecho(x.second);
-           listaEstados.insert(listaEstados.end(), aux.begin(), aux.end());
+           listaEstados.insert(aux.begin(), aux.end());
         }
         );
 
-      fechos.insert(std::make_pair(estadoAtual, listaEstados));
-
+      auto itFind = this->fechos.find(estadoAtual);
+      itFind->second.insert(listaEstados.begin(), listaEstados.end());
       return listaEstados;
 }
 
@@ -82,57 +50,32 @@ std::unordered_set<NFAEstado*> DFA::moveFecho(const std::unordered_set<NFAEstado
     return result;
 }
 
+
 //---------------------------------------------------------------------------------
 
-//void DFA::criarDFA()
-//{
-//    static auto estadoFinal = [](const std::unordered_set<NFAEstado*>& estados){ return std::any_of(estados.begin(), estados.end(),
-//                                                         [](NFAEstado* s){return s->estadoFinal; }); };
+void DFA::criarDFA()
+{
 
-//    std::unordered_map<DFAEstado*, std::unordered_set<NFAEstado*>> mapEstados;
+    //Inserir estados na lista de &-fechos
+    for(auto it = this->nfa.begin(); it != this->nfa.end(); ++it)
+    {
+        this->fechos.insert(std::make_pair(*it, std::unordered_set<NFAEstado*>({})));
+    }
 
-//    std::unordered_set<NFAEstado*> setInicial = epsilonFecho(std::unordered_set<NFAEstado*>{nfa.front()});
+    for(auto it = this->nfa.begin(); it != this->nfa.end(); ++it)
+    {
+        calculaFecho(*(it));
 
-//    dfa.push_back(new DFAEstado(idAtual++, estadoFinal(setInicial)));
-
-//    mapEstados.emplace(dfa.back(), setInicial);
-
-
-//        std::stack<DFAEstado*> proxEstado;
-//        proxEstado.push(dfa.back());
-
-//        // REMOVER & DO ALFABETO
-
-//        while(proxEstado.size())
-//        {
-//            DFAEstado* estado = proxEstado.top();
-//            proxEstado.pop();
-
-//            for(uchar c: Alfabeto)
-//            {
-//                std::unordered_set<NFAEstado*> setRes = epsilonFecho(moveFecho(mapEstados[estado], c));
-
-//                auto it = std::find_if(dfa.begin(), dfa.end(),
-//                                       [&](const auto& s){return setRes == mapEstados[s]; });
-
-//                if(it == dfa.end())
-//                {
-//                    dfa.push_back(new DFAEstado(idAtual++, estadoFinal(setRes), setRes.empty()));
-
-//                    mapEstados.emplace(dfa.back(), setRes);
-
-//                    estado->transicoes.emplace(c, dfa.back());
-
-//                    proxEstado.push(dfa.back());
-//                }
-
-//                else
-//                    estado->transicoes.emplace(c, *it);
-//            }
-//        }
-//}
+        for(auto it2 = this->nfa.begin(); it2 != this->nfa.end(); ++it2)
+        {
+            (*it2)->fecho = false;
+        }
+    }
+}
 
 using namespace std;
+
+//-----------------------------------------------------------------------------------------------
 
 void DFA::show()
 {

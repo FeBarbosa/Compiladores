@@ -6,6 +6,8 @@
 #include "nfa.h"
 #include <sstream>
 #include <iostream>
+#include <map>
+#include <set>
 
 class DFAEstado;
 
@@ -21,6 +23,15 @@ public:
 
 using DFATable = std::deque<DFAEstado*>;
 
+
+struct comp
+{
+    bool operator () (NFAEstado* a, NFAEstado* b)const
+    {
+        return a->id < b->id;
+    }
+};
+
 //---------------------------------------------------------------
 class DFA
 {
@@ -28,9 +39,8 @@ public:
     DFA(const NFATable&, const std::vector<uchar>&);
 
     //MÉTODOS ----------------------------------------------------
-    //std::unordered_set<NFAEstado*> epsilonFecho(std::unordered_set<NFAEstado*>);
     std::unordered_set<NFAEstado*> moveFecho(const std::unordered_set<NFAEstado*>&, uchar);
-    std::vector<NFAEstado*> calculaFecho(NFAEstado*);
+    std::unordered_set<NFAEstado*> calculaFecho(NFAEstado*);
 
     void criarDFA();
     void show();
@@ -38,7 +48,7 @@ public:
     //ATRIBUTOS ---------------------------------------------
     NFATable nfa;
     DFATable dfa;
-    std::unordered_map<NFAEstado*, std::vector<NFAEstado*>> fechos;
+    std::map<NFAEstado*, std::unordered_set<NFAEstado*>, comp> fechos;
     std::vector<uchar> Alfabeto;        /** Alfabeto */
     int idAtual;
 };

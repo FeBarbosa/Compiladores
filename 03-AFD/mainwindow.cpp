@@ -115,7 +115,7 @@ void MainWindow::on_gerarAFN_clicked()
             //Preenchimento das células
             for(auto it2 = automato.Alfabeto.begin(); it2 != automato.Alfabeto.end(); it2++) // Percorre alfabeto para cada estado
             {
-                str = "{";
+                str = "";
 
                 auto range = (*it)->transicoes.equal_range((*it2));
                 for_each(
@@ -124,7 +124,11 @@ void MainWindow::on_gerarAFN_clicked()
                     [&str](trans::value_type& x){str += "q" + to_string(x.second->id) + " ";}
                 );
 
-                str += "}";
+                if(!str.empty())
+                {
+                    str = "{" + str;
+                    str += "}";
+                }
 
                 ui->tableWidget->setItem(i,j, new QTableWidgetItem(QString::fromStdString(str)));
 
@@ -143,11 +147,8 @@ void MainWindow::on_gerarAFD_clicked()
 
     DFA automato2 = DFA(automato.nfa, automato.Alfabeto);
 
-    for(auto it = automato2.nfa.begin(); it != automato2.nfa.end(); ++it)
-    {
-        if(!((*it)->fecho))
-            automato2.calculaFecho(*(it));
-    }
+    automato2.criarDFA();
+
     //inicializando a tabela
      int i =0;
     tableWidget_3 = new QTableWidget(this);
@@ -214,7 +215,7 @@ void MainWindow::on_gerarAFD_clicked()
 
         ui->tableWidget_3->setItem(i,0, new QTableWidgetItem(QString::fromStdString(str)));
 
-        str = "{";
+        str = "";
 
         for(auto it2 = (*it).second.begin(); it2 != (*it).second.end(); ++it2)
         {
@@ -228,7 +229,12 @@ void MainWindow::on_gerarAFD_clicked()
 //            [&str](trans::value_type& x){str += "q" + to_string(x.second->id) + " ";}
 //        );
 
-        str += "}";
+
+        if(!str.empty())
+        {
+            str = "{" + str;
+            str += "}";
+        }
 
         cout << str << endl;
 

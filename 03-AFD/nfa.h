@@ -10,7 +10,8 @@
 #include <algorithm>
 #include <assert.h>
 #include <iostream>
-
+#include <memory>
+#include <map>
 #include "estado.h"
 #include "expreregular.h"
 
@@ -25,13 +26,13 @@ class NFAEstado: public estado
 {
     public:
     using estado::estado; // Permite o uso de apenas "estado" como construtor dentro deste escopo
-    std::unordered_multimap<uchar, NFAEstado*> transicoes; //Tabela de Transicoes
+    std::multimap<uchar, NFAEstado*> transicoes; //Tabela de Transicoes
 };
 
 //---------------------------------------------------------------
 using NFATable = std::deque<NFAEstado*>; //Funciona com um #DEFINE
 
-typedef std::unordered_multimap<uchar, NFAEstado*> trans;
+typedef std::multimap<uchar, NFAEstado*> trans;
 
 //---------------------------------------------------------------
 class NFA
