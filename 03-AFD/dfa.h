@@ -8,6 +8,7 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <stack>
 
 class DFAEstado;
 
@@ -39,7 +40,7 @@ public:
     DFA(const NFATable&, const std::vector<uchar>&);
 
     //MÉTODOS ----------------------------------------------------
-    std::unordered_set<NFAEstado*> moveFecho(const std::unordered_set<NFAEstado*>&, uchar);
+    NFAEstado* moveFecho(NFAEstado* estadoAtual, uchar simbolo);
     std::unordered_set<NFAEstado*> calculaFecho(NFAEstado*);
 
     void criarDFA();
