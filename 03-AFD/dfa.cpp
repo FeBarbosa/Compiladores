@@ -104,34 +104,34 @@ void DFA::criarDFA()
 
     // inicia a pilha com estado inicial
     auto it = fechos.begin();
-    std::stack<NFAEstado*> pilhaDeEstados;
-    pilhaDeEstados.push(it->first);
+    std::deque<NFAEstado*> listaDeEstadosNFA;
+    listaDeEstadosNFA.push_front(it->first);
 
     // Cria e insere o estado inicial (sem as transições)
-    DFAEstado* estadoInicial = new DFAEstado(it->first->id);
-    this->dfa.push_back(estadoInicial);
+    DFAEstado* novoEstadoDFA = new DFAEstado(it->first->id);
+    this->dfa.push_front(novoEstadoDFA);
 
 
     //Parte que cria o DFA
-    while(!pilhaDeEstados.empty())
+    while(!listaDeEstadosNFA.empty())
     {
         DFAEstado* atual;
 
-        //busca o elemento atual para inserir transições
+        //busca o elemento atual do DFA para inserir transições
         for(auto it = this->dfa.begin(); it != dfa.end(); ++it)
-            if((*it)->id == pilhaDeEstados.top()->id)
+            if((*it)->id == listaDeEstadosNFA.front()->id)
                 atual = *it;
 
         for(int i = 0; i < (int)this->Alfabeto.size(); i++)
         {
             estadoExiste = false;
 
-            NFAEstado* novoEstado = moveFecho(pilhaDeEstados.top(), this->Alfabeto[i]);
+            NFAEstado* novoEstadoNFA = moveFecho(listaDeEstadosNFA.front(), this->Alfabeto[i]);
 
 
             for(auto it = this->dfa.begin(); it != dfa.end(); ++it)
             {
-                if((*it)->id == novoEstado->id)
+                if((*it)->id == novoEstadoNFA->id)
                 {
                     estadoExiste = true;
                 }
@@ -140,26 +140,26 @@ void DFA::criarDFA()
 
             if(!estadoExiste)
             {
-                DFAEstado* novo = new DFAEstado(novoEstado->id);
-                this->dfa.push_back(novo); //Insere um novo estado
+                novoEstadoDFA = new DFAEstado(novoEstadoNFA->id);
+                this->dfa.push_back(novoEstadoDFA); //Insere um novo estado
 
 
                 //Insere a transição no estado atual
-                atual->transicoes.emplace(this->Alfabeto[i], novo);
+                atual->transicoes.emplace(this->Alfabeto[i], novoEstadoDFA);
 
-                pilhaDeEstados.push(novoEstado);
+                listaDeEstadosNFA.push_back(novoEstadoNFA);
 
             }
             else
             {
                 for(auto it = dfa.begin(); it != dfa.end(); ++it)
-                    if((*it)->id == novoEstado->id)
+                    if((*it)->id == novoEstadoNFA->id)
                          atual->transicoes.emplace(this->Alfabeto[i], *it);
             }
 
         }
 
-        pilhaDeEstados.pop();
+        listaDeEstadosNFA.pop_front();
     }
 
 }
