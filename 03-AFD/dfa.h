@@ -42,6 +42,7 @@ public:
     //MÉTODOS ----------------------------------------------------
     NFAEstado* moveFecho(NFAEstado* estadoAtual, uchar simbolo);
     std::unordered_set<NFAEstado*> calculaFecho(NFAEstado*);
+    void CriaEstadoDeErro();
 
     void criarDFA();
     void show();
@@ -49,9 +50,11 @@ public:
     //ATRIBUTOS ---------------------------------------------
     NFATable nfa;
     DFATable dfa;
+    DFAEstado *estadoErro;
     std::map<NFAEstado*, std::unordered_set<NFAEstado*>, comp> fechos;
     std::vector<uchar> Alfabeto;        /** Alfabeto */
     int idAtual;
+    bool estadoErroUsado;
 };
 
 #endif // DFA_H

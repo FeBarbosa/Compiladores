@@ -190,7 +190,6 @@ DIST          = /opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_post.prf \
-		../03-AFD/.qmake.stash \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/default_pre.prf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/resolve_config.prf \
@@ -358,7 +357,6 @@ Makefile: ../03-AFD/03-AFD.pro /opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.c
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/default_pre.prf \
 		/opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/resolve_config.prf \
@@ -511,7 +509,6 @@ Makefile: ../03-AFD/03-AFD.pro /opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.c
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/qt_config.prf:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/linux-g++/qmake.conf:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/exclusive_builds.prf:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/default_pre.prf:
 /opt/Qt5.7.0/5.7/gcc_64/mkspecs/features/resolve_config.prf:
@@ -912,56 +909,6 @@ mainwindow.o: ../03-AFD/mainwindow.cpp ../03-AFD/mainwindow.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qicon.h \
 		ui_mainwindow.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/QVariant \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QAction \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qaction.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QApplication \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qapplication.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qeventloop.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qinputmethod.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QHeaderView \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qframe.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qvalidator.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtCore/qregularexpression.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qslider.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qstyle.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLabel \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlabel.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QLineEdit \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qlineedit.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextcursor.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextformat.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qpen.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtGui/qtextoption.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QMenuBar \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmenubar.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qmenu.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QPushButton \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qpushbutton.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qabstractbutton.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QTableWidget \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtablewidget.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtableview.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QToolBar \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/qtoolbar.h \
-		/opt/Qt5.7.0/5.7/gcc_64/include/QtWidgets/QWidget \
 		../03-AFD/expreregular.h \
 		../03-AFD/nfa.h \
 		../03-AFD/estado.h \

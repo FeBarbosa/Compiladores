@@ -38,27 +38,24 @@ std::unordered_set<NFAEstado*> DFA::calculaFecho(NFAEstado* estadoAtual)
 }
 
 //------------------------------------------------------------------------------
-//std::unordered_set<NFAEstado*> DFA::moveFecho(const std::unordered_set<NFAEstado*>& setNFA, uchar c)
-//{
-//    std::unordered_set<NFAEstado*> result;
+void DFA::CriaEstadoDeErro()
+{
+    this->estadoErro = new DFAEstado(-1);
 
-//    for(auto estado : setNFA)
-//    {
-//        auto range = estado->transicoes.equal_range(c);
-//        std::for_each(range.first, range.second, [&](const auto& p) {result.insert(p.second);});
-//    }
-//    return result;
-//}
+    for(int i = 0; i < (int)this->Alfabeto.size(); i++)
+        this->estadoErro->transicoes.emplace(this->Alfabeto[i], this->estadoErro);
+}
+
+//------------------------------------------------------------------------------
 
 NFAEstado* DFA::moveFecho(NFAEstado* estadoAtual, uchar simbolo)
 {
     auto itFind = this->fechos.find(estadoAtual);
-    NFAEstado* novoEstado;
+    NFAEstado* novoEstado = NULL;
+
     for(auto it = itFind->second.begin(); it != itFind->second.end(); ++it)
     {
         auto itFind2 = (*it)->transicoes.equal_range(simbolo);
-
-        // VERIFICAR QUANDO NÃO TIVER TRANSIÇÃO PARA O SIMBOLO
 
         for_each(
             itFind2.first,
@@ -100,7 +97,8 @@ void DFA::criarDFA()
         }
     }
 
-
+    //Cria o estado de erro (mesmo que não seja necessário)
+    CriaEstadoDeErro();
 
     // inicia a pilha com estado inicial
     auto it = fechos.begin();
@@ -115,6 +113,12 @@ void DFA::criarDFA()
     //Parte que cria o DFA
     while(!listaDeEstadosNFA.empty())
     {
+
+//        for(auto itaux = listaDeEstadosNFA.begin(); itaux != listaDeEstadosNFA.end(); ++itaux)
+//            cout << (*itaux)->id << endl;
+
+//        cout << endl;
+
         DFAEstado* atual;
 
         //busca o elemento atual do DFA para inserir transições
@@ -128,36 +132,47 @@ void DFA::criarDFA()
 
             NFAEstado* novoEstadoNFA = moveFecho(listaDeEstadosNFA.front(), this->Alfabeto[i]);
 
-
-            for(auto it = this->dfa.begin(); it != dfa.end(); ++it)
+            if(novoEstadoNFA != NULL)
             {
-                if((*it)->id == novoEstadoNFA->id)
+                for(auto it = this->dfa.begin(); it != dfa.end(); ++it)
+                    if((*it)->id == novoEstadoNFA->id)
+                        estadoExiste = true;
+                if(!estadoExiste)
                 {
-                    estadoExiste = true;
+                    novoEstadoDFA = new DFAEstado(novoEstadoNFA->id);
+                    this->dfa.push_back(novoEstadoDFA); //Insere um novo estado
+
+
+                    //Insere a transição no estado atual
+                    atual->transicoes.emplace(this->Alfabeto[i], novoEstadoDFA);
+
+                    auto itfind = this->fechos.find(novoEstadoNFA);
+
+                    for(auto it2 = itfind->second.begin(); it2 != itfind.second.end(); ++it2)
+                    {
+                        if((*it2)->estadoFinal)
+                            atual->estadoFinal = true;
+                    }
+
+                    listaDeEstadosNFA.push_back(novoEstadoNFA);
+
                 }
-
-            }
-
-            if(!estadoExiste)
-            {
-                novoEstadoDFA = new DFAEstado(novoEstadoNFA->id);
-                this->dfa.push_back(novoEstadoDFA); //Insere um novo estado
-
-
-                //Insere a transição no estado atual
-                atual->transicoes.emplace(this->Alfabeto[i], novoEstadoDFA);
-
-                listaDeEstadosNFA.push_back(novoEstadoNFA);
-
+                else
+                {
+                    for(auto it = dfa.begin(); it != dfa.end(); ++it)
+                        if((*it)->id == novoEstadoNFA->id)
+                             atual->transicoes.emplace(this->Alfabeto[i], *it);
+                }
             }
             else
             {
-                for(auto it = dfa.begin(); it != dfa.end(); ++it)
-                    if((*it)->id == novoEstadoNFA->id)
-                         atual->transicoes.emplace(this->Alfabeto[i], *it);
+                this->estadoErroUsado = true;
+                atual->transicoes.emplace(this->Alfabeto[i], this->estadoErro);
             }
 
         }
+
+        //cout << "AA"<< endl;
 
         listaDeEstadosNFA.pop_front();
     }
