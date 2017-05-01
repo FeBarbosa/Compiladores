@@ -48,7 +48,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(965, 707);
+        MainWindow->resize(1322, 707);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         entrada = new QLineEdit(centralWidget);
@@ -63,7 +63,7 @@ public:
         mensagem->setFrameShape(QFrame::Box);
         tableWidget = new QTableWidget(centralWidget);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
-        tableWidget->setGeometry(QRect(50, 210, 391, 231));
+        tableWidget->setGeometry(QRect(50, 210, 541, 231));
         gerarPosFixa = new QPushButton(centralWidget);
         gerarPosFixa->setObjectName(QStringLiteral("gerarPosFixa"));
         gerarPosFixa->setGeometry(QRect(780, 10, 111, 41));
@@ -75,7 +75,7 @@ public:
         gerarAFD->setGeometry(QRect(780, 120, 111, 41));
         tableWidget_2 = new QTableWidget(centralWidget);
         tableWidget_2->setObjectName(QStringLiteral("tableWidget_2"));
-        tableWidget_2->setGeometry(QRect(50, 480, 391, 191));
+        tableWidget_2->setGeometry(QRect(50, 480, 611, 191));
         label = new QLabel(centralWidget);
         label->setObjectName(QStringLiteral("label"));
         label->setEnabled(true);
@@ -85,17 +85,17 @@ public:
         label_2->setGeometry(QRect(60, 450, 291, 17));
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(560, 180, 67, 17));
+        label_3->setGeometry(QRect(660, 170, 67, 17));
         tableWidget_3 = new QTableWidget(centralWidget);
         tableWidget_3->setObjectName(QStringLiteral("tableWidget_3"));
-        tableWidget_3->setGeometry(QRect(490, 210, 391, 231));
+        tableWidget_3->setGeometry(QRect(630, 210, 591, 231));
         tableWidget_3->setLineWidth(1);
         tableWidget_3->setColumnCount(0);
         tableWidget_3->horizontalHeader()->setDefaultSectionSize(200);
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 965, 22));
+        menuBar->setGeometry(QRect(0, 0, 1322, 19));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

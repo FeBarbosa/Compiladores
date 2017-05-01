@@ -18,7 +18,7 @@ class DFAEstado : public estado
 public:
 
     using estado::estado; // Permite o uso de apenas "estado" como construtor dentro deste escopo
-    std::unordered_map<uchar, DFAEstado*> transicoes; //Tabela de Transicoes
+    std::map<uchar, DFAEstado*> transicoes; //Tabela de Transicoes
 };
 //---------------------------------------------------------------
 
@@ -43,9 +43,9 @@ public:
     NFAEstado* moveFecho(NFAEstado* estadoAtual, uchar simbolo);
     std::unordered_set<NFAEstado*> calculaFecho(NFAEstado*);
     void CriaEstadoDeErro();
-
     void criarDFA();
     void show();
+    void renomeiaEstados();
 
     //ATRIBUTOS ---------------------------------------------
     NFATable nfa;
@@ -54,7 +54,6 @@ public:
     std::map<NFAEstado*, std::unordered_set<NFAEstado*>, comp> fechos;
     std::vector<uchar> Alfabeto;        /** Alfabeto */
     int idAtual;
-    bool estadoErroUsado;
 };
 
 #endif // DFA_H

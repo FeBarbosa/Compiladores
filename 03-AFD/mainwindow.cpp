@@ -249,12 +249,7 @@ void MainWindow::on_gerarAFD_clicked()
 
     //dimensões da tabela
     int colCount_2 = automato.Alfabeto.size();
-    int rCount_2;
-
-    if(automato2.estadoErroUsado)
-        rCount_2 = automato2.dfa.size()+2;
-    else
-        rCount_2 = automato2.dfa.size()+1;
+    int rCount_2 = automato2.dfa.size()+1;
 
     ui->tableWidget_2->setColumnCount(colCount_2);
     ui->tableWidget_2->setRowCount(rCount_2);
@@ -263,8 +258,16 @@ void MainWindow::on_gerarAFD_clicked()
     ui->tableWidget_2->horizontalHeader()->setVisible(false);
     string str2, simbolo;
 
+    for(int i = 0; i < automato2.Alfabeto.size(); i++)  // percorre o unordered_multimap
+    {
+        //Preenchimento do cabeçalho da tabela do DFA - Simbolos do Alfabeto
+        simbolo = automato2.Alfabeto[i];
+
+        ui->tableWidget_2->setItem(0,i+1, new QTableWidgetItem(QString::fromStdString(simbolo)));
+    }
 
     linha = 1;
+
 
      //Preenchimento da tabela DFA
      for(auto it = automato2.dfa.begin(); it !=automato2.dfa.end(); it++) // //percorre o deque
@@ -284,18 +287,10 @@ void MainWindow::on_gerarAFD_clicked()
 
       for(auto it2 = (*it)->transicoes.begin(); it2 != (*it)->transicoes.end(); it2++)  // percorre o unordered_multimap
       {
-          //Preenchimento do cabeçalho da tabela do DFA - Simbolos do Alfabeto
-          simbolo = (*it2).first;
-
-          ui->tableWidget_2->setItem(0,col, new QTableWidgetItem(QString::fromStdString(simbolo)));
-
           //Preenchimento das células da tabela DFA
           str2 ="q";
 
-          if((*it2).second->id == -1)
-            str2 = "Erro";
-          else
-            str2 += to_string((*it2).second->id);
+          str2 += to_string((*it2).second->id);
 
           ui->tableWidget_2->setItem(linha,col, new QTableWidgetItem(QString::fromStdString(str2)));
 
@@ -303,13 +298,5 @@ void MainWindow::on_gerarAFD_clicked()
        }
 
        linha++;
-
-       if(automato2.estadoErroUsado && linha == automato2.dfa.size())
-       {
-           for(int i = 0; i < automato2.Alfabeto.size() + 1; i++)
-           {
-               ui->tableWidget_2->setItem(linha+1,i, new QTableWidgetItem(QString::fromStdString("Erro")));
-           }
-       }
      }
 }

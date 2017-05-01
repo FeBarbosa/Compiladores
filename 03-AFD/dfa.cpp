@@ -47,6 +47,17 @@ void DFA::CriaEstadoDeErro()
 }
 
 //------------------------------------------------------------------------------
+void DFA::renomeiaEstados()
+{
+    int i = 0;
+
+    for(auto it = this->dfa.begin(); it != this->dfa.end(); ++it)
+    {
+        (*it)->id = i;
+        i++;
+    }
+}
+//------------------------------------------------------------------------------
 
 NFAEstado* DFA::moveFecho(NFAEstado* estadoAtual, uchar simbolo)
 {
@@ -76,6 +87,7 @@ void DFA::criarDFA()
 {
 
     bool estadoExiste;
+    bool primeiroErro = true;
 
     this->Alfabeto.pop_back();//Remove o EPSILON do alfabeto
 
@@ -107,6 +119,11 @@ void DFA::criarDFA()
 
     // Cria e insere o estado inicial (sem as transições)
     DFAEstado* novoEstadoDFA = new DFAEstado(it->first->id);
+
+    for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+        if((*it2)->estadoFinal)
+            novoEstadoDFA->estadoFinal = true;
+
     this->dfa.push_front(novoEstadoDFA);
 
 
@@ -146,13 +163,11 @@ void DFA::criarDFA()
                     //Insere a transição no estado atual
                     atual->transicoes.emplace(this->Alfabeto[i], novoEstadoDFA);
 
-                    auto itfind = this->fechos.find(novoEstadoNFA);
+                    auto itFind = this->fechos.find(novoEstadoNFA);
 
-                    for(auto it2 = itfind->second.begin(); it2 != itfind.second.end(); ++it2)
-                    {
+                    for(auto it2 = itFind->second.begin(); it2 != itFind->second.end(); ++it2)
                         if((*it2)->estadoFinal)
-                            atual->estadoFinal = true;
-                    }
+                            novoEstadoDFA->estadoFinal = true;
 
                     listaDeEstadosNFA.push_back(novoEstadoNFA);
 
@@ -166,8 +181,13 @@ void DFA::criarDFA()
             }
             else
             {
-                this->estadoErroUsado = true;
                 atual->transicoes.emplace(this->Alfabeto[i], this->estadoErro);
+
+                if(primeiroErro)
+                {
+                    this->dfa.push_back(this->estadoErro);
+                    primeiroErro = false;
+                }
             }
 
         }
@@ -177,12 +197,12 @@ void DFA::criarDFA()
         listaDeEstadosNFA.pop_front();
     }
 
+    renomeiaEstados();
 }
 
 using namespace std;
 
 //-----------------------------------------------------------------------------------------------
-
 void DFA::show()
 {
     for(auto it = Alfabeto.begin(); it !=Alfabeto.end(); ++it)
