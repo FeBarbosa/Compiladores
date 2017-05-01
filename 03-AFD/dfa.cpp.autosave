@@ -31,7 +31,7 @@ std::unordered_set<NFAEstado*> DFA::calculaFecho(NFAEstado* estadoAtual)
         auto itFind = this->fechos.find(estadoAtual);
         return itFind->second;
     }
-
+    
     // Define que o estado atual já foi calculado (antes msm de realmente calcular)
     estadoAtual->fecho = true;
 
@@ -71,6 +71,7 @@ NFAEstado* DFA::moveFecho(NFAEstado* estadoAtual, uchar simbolo)
     {
         auto itFind2 = (*it)->transicoes.equal_range(simbolo);
 
+        
         for_each(
             itFind2.first,
             itFind2.second,
