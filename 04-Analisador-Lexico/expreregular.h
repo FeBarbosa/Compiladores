@@ -21,11 +21,11 @@ class ExpreRegular
 {
 public:
 
-    //ATRIBUTOS------------------------------------------------------------------------------------
+    // ATRIBUTOS ------------------------------------------------------------------------------------
     string inFix;
     string posFix;
 
-    //MÉTODOS--------------------------------------------------------------------------------------
+    // MÉTODOS --------------------------------------------------------------------------------------
     ExpreRegular(string);                     /** CONSTRUTOR */
     int infParaPos();                   /** Converte uma expressão na fora infixa para posfixa */
     bool verificarExpressaoPosfixa();   /** Verifica se uma expressão posfixa é válida */

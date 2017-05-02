@@ -27,13 +27,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dfa.cpp \
     expreregular.cpp \
-    nfa.cpp
+    nfa.cpp \
+    secdialog.cpp \
+    analisadorlexico.cpp
 
 HEADERS  += mainwindow.h \
     dfa.h \
     estado.h \
     expreregular.h \
-    nfa.h
+    nfa.h \
+    secdialog.h \
+    analisadorlexico.h
 
 FORMS    += mainwindow.ui \
-    form.ui
+    secdialog.ui

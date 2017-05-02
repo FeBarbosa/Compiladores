@@ -6,7 +6,7 @@ class estado
 {
     public:
 
-        //CONSTRUTOR -----------------------------------------------
+        // CONSTRUTOR -----------------------------------------------
         estado (int id=-1, bool estadoFinal =false, bool estadoErro = false, bool fecho=false):
             id(id), estadoFinal(estadoFinal), estadoErro(estadoErro),fecho(fecho){}
         //----------------------------------------------------------

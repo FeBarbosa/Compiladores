@@ -38,10 +38,10 @@ typedef std::multimap<uchar, NFAEstado*> trans;
 class NFA
 {
 public:
-    ///CONSTRUTOR------------------------------------------------
+    // CONSTRUTOR------------------------------------------------
     NFA(const std::string&);
 
-    ///METODOS -------------------------------------------------
+    // METODOS -------------------------------------------------
     void criarNFA();     /* Converte Expressão regular para NFA*/
 
     NFATable base(uchar);  /* Cria a base do Autômato */
@@ -51,7 +51,7 @@ public:
     void show();
     void renomeiaEstados(NFATable&, int);
 
-    ///ATRIBUTOS --------------------------------------------------
+    // ATRIBUTOS --------------------------------------------------
     std::string strNFA;
     int idAtual;
     std::vector<uchar> Alfabeto;   /* Alfabeto */

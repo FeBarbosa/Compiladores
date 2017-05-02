@@ -37,9 +37,10 @@ struct comp
 class DFA
 {
 public:
-    DFA(const NFATable&, const std::vector<uchar>&);
+    // CONSTRUTOR ------------------------------------------------
+    DFA(const NFATable&, const std::vector<uchar>&, std::string);
 
-    //MÉTODOS ----------------------------------------------------
+    // MÉTODOS ----------------------------------------------------
     NFAEstado* moveFecho(NFAEstado* estadoAtual, uchar simbolo);
     std::unordered_set<NFAEstado*> calculaFecho(NFAEstado*);
     void CriaEstadoDeErro();
@@ -47,13 +48,14 @@ public:
     void show();
     void renomeiaEstados();
 
-    //ATRIBUTOS ---------------------------------------------
+    // ATRIBUTOS ---------------------------------------------
     NFATable nfa;
     DFATable dfa;
     DFAEstado *estadoErro;
     std::map<NFAEstado*, std::unordered_set<NFAEstado*>, comp> fechos;
     std::vector<uchar> Alfabeto;        /** Alfabeto */
     int idAtual;
+    std::string token;
 };
 
 #endif // DFA_H

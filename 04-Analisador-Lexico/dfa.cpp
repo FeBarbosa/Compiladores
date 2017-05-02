@@ -1,7 +1,7 @@
 #include "dfa.h"
 
 //--------------------------------------------------------------------------
-DFA::DFA(const NFATable& nfa, const std::vector<uchar>& Alfabeto): nfa(nfa), Alfabeto(Alfabeto), idAtual(0){}
+DFA::DFA(const NFATable& nfa, const std::vector<uchar>& Alfabeto, string token): nfa(nfa), Alfabeto(Alfabeto), idAtual(0), token(token){}
 
 //--------------------------------------------------------------------------
 void DFA::CriaEstadoDeErro()
