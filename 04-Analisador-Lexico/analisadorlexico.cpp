@@ -35,13 +35,9 @@ void AnalisadorLexico::calcularPadrao(string padraoNovo, string tokenNovo)
 
     NFAaux.criarNFA();
 
-    DFA *DFAaux = new DFA(NFAaux.nfa, NFAaux.Alfabeto, tokenNovo);
+    DFA *DFAaux = new DFA(NFAaux.nfa, NFAaux.Alfabeto, tokenNovo, padraoNovo);
 
     DFAaux->criarDFA();
-
-    this->padrao.push_back(padraoAux);
     this->listaDeTokens.push_back(DFAaux);
 }
-
 //--------------------------------------------------------------------------
-

@@ -6,7 +6,8 @@
 namespace Ui {
 class SecDialog;
 }
-
+class QTableWidget;
+class QTableWidgetItem;
 class SecDialog : public QDialog
 {
     Q_OBJECT
@@ -19,6 +20,8 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    QTableWidget *tableWidget;
+    QTableWidgetItem *tableWidgetItem;
     Ui::SecDialog *ui;
 };
 

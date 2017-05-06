@@ -38,7 +38,7 @@ class DFA
 {
 public:
     // CONSTRUTOR ------------------------------------------------
-    DFA(const NFATable&, const std::vector<uchar>&, std::string);
+    DFA(const NFATable&, const std::vector<uchar>&, std::string, std::string);
 
     // MÉTODOS ----------------------------------------------------
     NFAEstado* moveFecho(NFAEstado* estadoAtual, uchar simbolo);
@@ -56,6 +56,7 @@ public:
     std::vector<uchar> Alfabeto;        /** Alfabeto */
     int idAtual;
     std::string token;
+    std::string padrao;
 };
 
 #endif // DFA_H

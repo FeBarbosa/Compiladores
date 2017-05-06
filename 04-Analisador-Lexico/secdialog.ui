@@ -36,7 +36,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="entradaToken">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -70,6 +70,16 @@
    </property>
    <property name="text">
     <string>Enviar</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>250</y>
+     <width>531</width>
+     <height>201</height>
+    </rect>
    </property>
   </widget>
  </widget>

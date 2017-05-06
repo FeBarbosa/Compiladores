@@ -18,9 +18,6 @@ public:
 
     // ATRIBUTOS -----------------------------------------------
     std::vector<DFA*> listaDeTokens;
-    std::vector<ExpreRegular*> padrao;
-
-
 };
 
 #endif // ANALISADORLEXICO_H
