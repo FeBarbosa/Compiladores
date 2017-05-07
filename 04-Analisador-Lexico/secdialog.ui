@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>795</width>
-    <height>484</height>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -69,7 +69,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Enviar</string>
+    <string>Inserir</string>
    </property>
   </widget>
   <widget class="QTableWidget" name="tableWidget">
@@ -82,7 +82,37 @@
     </rect>
    </property>
   </widget>
+  <widget class="QPushButton" name="Cancelar">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>494</y>
+     <width>89</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cancelar</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>Cancelar</sender>
+   <signal>clicked()</signal>
+   <receiver>SecDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>726</x>
+     <y>497</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>694</x>
+     <y>471</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

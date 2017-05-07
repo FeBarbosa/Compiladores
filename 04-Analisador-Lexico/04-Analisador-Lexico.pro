@@ -28,7 +28,6 @@ SOURCES += main.cpp\
     dfa.cpp \
     expreregular.cpp \
     nfa.cpp \
-    secdialog.cpp \
     analisadorlexico.cpp
 
 HEADERS  += mainwindow.h \
@@ -36,8 +35,6 @@ HEADERS  += mainwindow.h \
     estado.h \
     expreregular.h \
     nfa.h \
-    secdialog.h \
     analisadorlexico.h
 
-FORMS    += mainwindow.ui \
-    secdialog.ui
+FORMS    += mainwindow.ui

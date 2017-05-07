@@ -1,14 +1,16 @@
 #include "secdialog.h"
 #include "ui_secdialog.h"
-#include "analisadorlexico.h"
+#include "mainwindow.h"
+//#include "analisadorlexico.h"
 
-AnalisadorLexico *analisador = new AnalisadorLexico();
+
 
 SecDialog::SecDialog(QWidget *parent) :
     QDialog(parent),tableWidget(NULL),
     ui(new Ui::SecDialog)
 {
     ui->setupUi(this);
+    //connect(this, SIGNAL(rejected()),qApp, SLOT(quit()));
 }
 
 SecDialog::~SecDialog()
@@ -18,6 +20,7 @@ SecDialog::~SecDialog()
 
 void SecDialog::on_pushButton_clicked()
 {
+    AnalisadorLexico *analisador = new AnalisadorLexico();
     analisador->calcularPadrao(ui->entradaExpressao->text().toStdString(), ui->entradaToken->text().toStdString());
 
     //inicializando a tabela
@@ -45,5 +48,7 @@ void SecDialog::on_pushButton_clicked()
 
         i++;
     }
+
+    //accept();
 
 }

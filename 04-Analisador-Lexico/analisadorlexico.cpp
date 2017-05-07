@@ -30,14 +30,17 @@ void AnalisadorLexico::calcularPadrao(string padraoNovo, string tokenNovo)
         msgBox.setInformativeText(QString::fromStdString(mensagem));
         msgBox.exec();
     }
+    else
+    {
 
-    NFA NFAaux = NFA(padraoAux->posFix);
+        NFA NFAaux = NFA(padraoAux->posFix);
 
-    NFAaux.criarNFA();
+        NFAaux.criarNFA();
 
-    DFA *DFAaux = new DFA(NFAaux.nfa, NFAaux.Alfabeto, tokenNovo, padraoNovo);
+        DFA *DFAaux = new DFA(NFAaux.nfa, NFAaux.Alfabeto, tokenNovo, padraoNovo);
 
-    DFAaux->criarDFA();
-    this->listaDeTokens.push_back(DFAaux);
+        DFAaux->criarDFA();
+        this->listaDeTokens.push_back(DFAaux);
+    }
 }
 //--------------------------------------------------------------------------

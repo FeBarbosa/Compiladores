@@ -2,10 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "secdialog.h"
+#include "analisadorlexico.h"
 namespace Ui {
 class MainWindow;
 }
+class QAction;
+class QTableWidget;
+class QTableWidgetItem;
 
 class MainWindow : public QMainWindow
 {
@@ -18,9 +21,17 @@ public:
 private slots:
     void on_Token_clicked();
 
+    void on_Analisar_clicked();
+
+    void on_inserirToken_clicked();
+
 private:
+    QAction *removeAction;
+    QTableWidget *tableWidget;
+    QTableWidgetItem *tableWidgetItem;
     Ui::MainWindow *ui;
-    SecDialog *secdialog;
+    //SecDialog *secdialog;
+
 };
 
 #endif // MAINWINDOW_H
