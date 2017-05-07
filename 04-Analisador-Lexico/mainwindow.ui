@@ -140,9 +140,12 @@
      <rect>
       <x>920</x>
       <y>50</y>
-      <width>331</width>
+      <width>311</width>
       <height>311</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

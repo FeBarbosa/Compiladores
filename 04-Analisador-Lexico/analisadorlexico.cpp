@@ -44,3 +44,8 @@ void AnalisadorLexico::calcularPadrao(string padraoNovo, string tokenNovo)
     }
 }
 //--------------------------------------------------------------------------
+
+std::string AnalisadorLexico::analise(std::string codigo)
+{
+
+}
