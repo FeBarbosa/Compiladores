@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "analisadorlexico.h"
 #include <QMessageBox>
+#include <iostream>
+#include <sstream>
 
 AnalisadorLexico *analisador = new AnalisadorLexico();
 
@@ -30,7 +32,10 @@ void MainWindow::on_Token_clicked()
 
 void MainWindow::on_Analisar_clicked()
 {
-
+    string str;
+    str = ui->plainTextEdit->toPlainText().toStdString();
+    QString str2 = QString::fromStdString(str);
+    ui->textEdit->setText(str2);
 }
 
 void MainWindow::on_inserirToken_clicked()

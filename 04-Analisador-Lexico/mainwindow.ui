@@ -27,19 +27,6 @@
      <string>Analisar</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="entradaCodigo">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>50</y>
-      <width>301</width>
-      <height>311</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -109,7 +96,7 @@
      <string>Inserir</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="mensagensDeErro">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -118,24 +105,11 @@
       <height>131</height>
      </rect>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::Panel</enum>
+    </property>
     <property name="text">
      <string/>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="textEdit">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>940</x>
-      <y>50</y>
-      <width>291</width>
-      <height>311</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
     </property>
    </widget>
    <widget class="Line" name="line">
@@ -149,6 +123,26 @@
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>50</y>
+      <width>311</width>
+      <height>311</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>50</y>
+      <width>331</width>
+      <height>311</height>
+     </rect>
     </property>
    </widget>
   </widget>
