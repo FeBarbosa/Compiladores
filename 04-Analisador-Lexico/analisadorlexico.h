@@ -17,11 +17,11 @@ public:
 
     // METODOS -------------------------------------------------
     void calcularPadrao(std::string, std::string);
-    std::string analise(std::string);
-    int funcaoDeTransicao(std::string, DFA);
+    std::string analise(std::string, int);
 
     // ATRIBUTOS -----------------------------------------------
     std::vector<DFA*> listaDeTokens;
+    std::vector<std::pair<int, int>> possicaoDosErros;
 };
 
 #endif // ANALISADORLEXICO_H

@@ -34,6 +34,9 @@ void MainWindow::on_Analisar_clicked()
 {
     string str;
     str = ui->plainTextEdit->toPlainText().toStdString();
+
+    str = analisador->analise(str, 0);
+
     QString str2 = QString::fromStdString(str);
     ui->textEdit->setText(str2);
 }
@@ -62,9 +65,9 @@ void MainWindow::on_inserirToken_clicked()
     {
        strPadrao = (*it)->padrao;
        strToken = (*it)->token;
-        ui->tableWidget->setItem(i,0, new QTableWidgetItem(QString::fromStdString(strPadrao)));
-        ui->tableWidget->setItem(i,1, new QTableWidgetItem(QString::fromStdString(strToken)));
+       ui->tableWidget->setItem(i,0, new QTableWidgetItem(QString::fromStdString(strPadrao)));
+       ui->tableWidget->setItem(i,1, new QTableWidgetItem(QString::fromStdString(strToken)));
 
-        i++;
+       i++;
     }
 }

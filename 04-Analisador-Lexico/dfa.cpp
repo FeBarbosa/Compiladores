@@ -1,19 +1,21 @@
 #include "dfa.h"
 
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 DFA::DFA(const NFATable& nfa, const std::vector<uchar>& Alfabeto, string token, string padrao):
     nfa(nfa), Alfabeto(Alfabeto), idAtual(0), token(token), padrao(padrao){}
 
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void DFA::CriaEstadoDeErro()
 {
     this->estadoErro = new DFAEstado(-1);
 
     for(int i = 0; i < (int)this->Alfabeto.size(); i++)
         this->estadoErro->transicoes.emplace(this->Alfabeto[i], this->estadoErro);
+
+    estadoErro->estadoErro = true;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void DFA::renomeiaEstados()
 {
     int i = 0;
@@ -24,6 +26,8 @@ void DFA::renomeiaEstados()
         i++;
     }
 }
+
+//-----------------------------------------------------------------------------
 std::unordered_set<NFAEstado*> DFA::calculaFecho(NFAEstado* estadoAtual)
 {
     // O fecho-& para o estado atual já foi calculado
@@ -59,7 +63,7 @@ std::unordered_set<NFAEstado*> DFA::calculaFecho(NFAEstado* estadoAtual)
     return listaEstados;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Percorre um fecho-&, procura e retorna o estado que tem transição para o símbolo passado
 NFAEstado* DFA::moveFecho(NFAEstado* estadoAtual, uchar simbolo)
 {
@@ -84,7 +88,7 @@ NFAEstado* DFA::moveFecho(NFAEstado* estadoAtual, uchar simbolo)
     return novoEstado;
 }
 
-//---------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void DFA::criarDFA()
 {
 
@@ -205,6 +209,34 @@ void DFA::criarDFA()
     renomeiaEstados();
 }
 
-using namespace std;
+//-----------------------------------------------------------------------------
+int DFA::funcaoDeTransicao(const string &codigo, int indiceAtual, DFAEstado *estadoAtual)
+{   
+    //Estado de Erro ou fim do codigo
+    if(estadoAtual->estadoErro || indiceAtual >= codigo.size())
+        return -1;
 
-//-----------------------------------------------------------------------------------------------
+    //Busca a transição para o símbolo atual
+    auto it = estadoAtual->transicoes.find(codigo[indiceAtual]);
+
+    //cout << it->second->id << endl;
+
+    if(it != estadoAtual->transicoes.end())
+    {
+        //chama a função de transição passando o estado de transição e próximo índice
+        int a = funcaoDeTransicao(codigo, indiceAtual+1, it->second);
+
+
+        //Retorno é um índice válido
+        if(a != -1)
+            return a;
+
+        //O estado Atual é um estado final
+        if(it->second->estadoFinal)
+            return indiceAtual;
+    }
+
+    //Todos os estados até aqui não são de aceitação
+    return -1;
+}
+//-----------------------------------------------------------------------------

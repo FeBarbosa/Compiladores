@@ -47,6 +47,7 @@ public:
     void criarDFA();
     void show();
     void renomeiaEstados();
+    int funcaoDeTransicao(const std::string &, int, DFAEstado *);
 
     // ATRIBUTOS ---------------------------------------------
     NFATable nfa;
