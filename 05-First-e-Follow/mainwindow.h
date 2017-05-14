@@ -4,6 +4,10 @@
 #include <QMainWindow>
 #include <cstring>
 #include <string>
+#include <iostream>
+#include <sstream>
+
+#include <gramaticall1.h>
 
 namespace Ui {
 class MainWindow;
@@ -16,6 +20,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    // Divide as entradas
+    std::vector<std::string> tokenizar(std::string, char *);
 
 private slots:
     void on_ok_clicked();
