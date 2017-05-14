@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="entradaV">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="entradaT">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -60,7 +60,7 @@
      <string>T =</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit">
+   <widget class="QPlainTextEdit" name="entradaP">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -122,7 +122,7 @@
      <string>Follow</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="ok">
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -135,7 +135,7 @@
      <string>OK</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="entradaS">
     <property name="geometry">
      <rect>
       <x>60</x>
