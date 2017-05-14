@@ -12,7 +12,7 @@ namespace ll
         {
             simbolo aux(false, variaveis[i]);
 
-            this->conjuntoDeSimbolos.insert((simbolo)aux);
+            this->conjuntoDeSimbolos.insert(aux);
         }
 
         for(int i = 0; i < (int)terminais.size(); i++)
