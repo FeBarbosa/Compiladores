@@ -12,9 +12,8 @@ namespace ll
     {
         // CONSTRUTORES -----------------------------------------------------------------
         simbolo() {}
-
         simbolo(const simbolo& s): std::string(s), terminal(s.terminal){}
-        simbolo(const simbolo &s, bool terminal = true): std::string(s), terminal(terminal){}
+        simbolo(const std::string& s): std::string(s){}
         simbolo(bool terminal, const std::string& s): std::string(s), terminal(terminal){}
 
         // VARIÁVEIS --------------------------------------------------------------------

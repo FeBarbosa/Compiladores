@@ -48,7 +48,7 @@ void MainWindow::on_ok_clicked()
     strP = ui->entradaP->toPlainText().toStdString();
 
     Vaux = tokenizar(strV, " ,");
-    Taux = tokenizar(strV, " ,");
+    Taux = tokenizar(strT, " ,");
 
     std::stringstream ss(strP);
 
@@ -61,6 +61,16 @@ void MainWindow::on_ok_clicked()
     }
 
     ll::gramaticaLL1 a(Vaux, Taux, Paux, strS);
+
+//    for(auto it = a.conjuntoDeSimbolos.begin(); it != a.conjuntoDeSimbolos.end(); ++it)
+//    {
+//        std::cout << *it;
+
+//        if(it->terminal)
+//            std::cout << " : terminal" << std::endl;
+//        else
+//            std::cout << " : não terminal" << std::endl;
+//    }
 
 
 }
