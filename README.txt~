@@ -1,0 +1,6 @@
+Disciplina: Compiladores
+Trabalho 01 - Conversão de Expressão regular na forma pós-fixa para Autômato Finito não-determinístico com movimento vazio (AFN-&)
+
+Alunos: Felipe Sousa Barbosa e Rosivânia Rodrigues Batista
+
+Implementado em C++ juntamente com Qt Creator para geração da GUI

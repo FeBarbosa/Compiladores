@@ -3,6 +3,8 @@
 namespace ll
 {
 
+    std::deque<simbolo> simbolosVisitados;
+
     // CONSTRUTOR -----------------------------------------------------------------------
     gramaticaLL1::gramaticaLL1(const std::vector<std::string> &variaveis,
                                const std::vector<std::string> &terminais ,
@@ -22,10 +24,22 @@ namespace ll
             this->conjuntoDeSimbolos.insert(aux);
         }
 
-        criarProducoes(producoes);
         this->simboloInicial = simbolo(true, inicial);
 
+        criarProducoes(producoes);
+
+//        for(auto it = this->conjuntoDeProducoes.begin(); it != this->conjuntoDeProducoes.end(); ++it)
+//        {
+//            std::cout << it->first << ": ";
+
+//            for(int i = 0; i < it->second.size(); i++)
+//                std::cout << it->second[i];
+
+//            std::cout << std::endl;
+//        }
+
         this->calcularFirst();
+        this->calcularFollow();
     }
 
     // ----------------------------------------------------------------------------------
@@ -91,16 +105,16 @@ namespace ll
                 this->conjuntoFirst.emplace(*it, aux);
              }
 
-        for(auto it = this->conjuntoFirst.begin(); it != this->conjuntoFirst.end(); ++it)
-        {
-            std::cout << it->first << ": ";
+//        for(auto it = this->conjuntoFirst.begin(); it != this->conjuntoFirst.end(); ++it)
+//        {
+//            std::cout << it->first << ": ";
 
-            for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
-                std::cout << *it2 << " ";
+//            for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+//                std::cout << *it2 << " ";
 
-            std::cout << std::endl << std::endl;
+//            std::cout << std::endl << std::endl;
 
-        }
+//        }
     }
 
     //-----------------------------------------------------------------------------------
@@ -111,17 +125,40 @@ namespace ll
         //Chama o conjunto
         auto range = this->conjuntoDeProducoes.equal_range(variavel);
 
+        bool continuar = true;
+
         // Chamada o conjunto first verificando o primeiro símbolo de cada elemento da união
         for_each(
             range.first,
             range.second,
             [&](producoes::value_type& x){
-                if(x.second[0].terminal)// O símbolo é terminal
-                    conjuntoDeSimbolosAux.insert(x.second[0]);
-                else// O símbolo não é terminal
+                for(int i = 0; i < x.second.size(); i++)
                 {
-                    std::set<simbolo> aux2 = calcularFirst(x.second[0]); //Chama recursivamente o first do símbolo
-                    conjuntoDeSimbolosAux.insert(aux2.begin(), aux2.end());
+                    if(x.second[i].terminal)// O símbolo é terminal
+                    {
+                        conjuntoDeSimbolosAux.insert(x.second[i]);
+                        break;
+                    }
+                    else// O símbolo não é terminal
+                    {
+                        continuar = false;
+
+                        std::set<simbolo> aux2 = calcularFirst(x.second[i]); //Chama recursivamente o first do símbolo
+                        for(auto it = aux2.begin(); it != aux2.end(); ++it)
+                        {
+                            if((*it != "&") || (i == x.second.size() - 1))
+                            {
+                                conjuntoDeSimbolosAux.insert(*it);
+                            }
+                            else
+                            {
+                                continuar = true;
+                            }
+                        }
+
+                        if(!continuar)
+                            break;
+                    }
                 }
         }
         );
@@ -129,5 +166,106 @@ namespace ll
         return conjuntoDeSimbolosAux;
     }
     // ----------------------------------------------------------------------------------
+    void gramaticaLL1::calcularFollow()
+    {
+        for(auto it = this->conjuntoDeSimbolos.begin(); it != this->conjuntoDeSimbolos.end(); ++it)
+            if(!it->terminal)
+             {
+                std::set<simbolo> aux = calcularFollow(*it);
+                this->conjuntoFollow.emplace(*it, aux);
+             }
+
+        for(auto it = this->conjuntoFollow.begin(); it != this->conjuntoFollow.end(); ++it)
+        {
+            std::cout << it->first << ": ";
+
+            for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+                std::cout << *it2 << " ";
+
+            std::cout << std::endl << std::endl;
+
+        }
+    }
+    //-----------------------------------------------------------------------------------
+    std::set<simbolo> gramaticaLL1::calcularFollow(const simbolo &variavel)
+    {
+        std::set<simbolo> followAux;
+
+        for(int i = 0; i < simbolosVisitados.size(); i++)
+        {
+            if(!variavel.compare(simbolosVisitados[i]))
+                return followAux;
+        }
+
+        simbolosVisitados.push_back(variavel);
+
+        int indice;
+        bool continuar;
+
+        if(!variavel.compare(this->simboloInicial))
+            followAux.insert(simbolo(true, "$"));
+
+
+        for(auto it = this->conjuntoDeProducoes.begin(); it != this->conjuntoDeProducoes.end(); ++it)
+        {
+            indice = -1;
+
+            for(int i = 0; i < it->second.size(); i++)
+            {
+                if(it->second[i] == variavel)
+                {
+                    indice = i;
+                    break;
+                }
+            }
+
+            if(indice == it->second.size() -1)
+            {
+                std::set<simbolo> followAux2 = calcularFollow(it->first);
+                followAux.insert(followAux2.begin(), followAux2.end());
+            }
+            else if(indice != -1)
+            {
+                for(int i = indice+1; i < it->second.size(); i++)
+                {
+                    std::cout << "AAA" << std::endl;
+
+                    continuar = false;
+
+                    if(it->second[i].terminal)
+                    {
+                        followAux.insert(it->second[i]);
+                        break;
+                    }
+                    else
+                    {
+
+                        auto itfind = this->conjuntoFirst.find(it->second[i]);
+
+                        for(auto it2 = itfind->second.begin(); it2 != itfind->second.end(); ++it2)
+                        {
+                            if(*it2 == "&")
+                                continuar = true;
+                            else
+                                followAux.insert(*it2);
+                        }
+
+                        if(!continuar)
+                            break;
+
+                        if(i == it->second.size()-1 && continuar)
+                        {
+                            std::set<simbolo> followAux2 = calcularFollow(it->first);
+                            followAux.insert(followAux2.begin(), followAux2.end());
+                        }
+                    }
+                }
+            }
+        }
+
+        simbolosVisitados.pop_front();
+
+        return followAux;
+    }
 
 }

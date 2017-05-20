@@ -10,6 +10,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <deque>
 
 #include "simbolo.h"
 
@@ -31,6 +32,7 @@ namespace ll
         void calcularFirst();
         std::set<simbolo> calcularFirst(const simbolo&);
         void calcularFollow();
+        std::set<simbolo> calcularFollow(const simbolo&);
 
         // ATRIBUTOS --------------------------------------------------------------------
         simbolo simboloInicial;
