@@ -95,8 +95,6 @@ void MainWindow::on_analisar_clicked()
     {
         strCodigo = lines.at(i).toStdString();
 
-        //strCodigo = atual.toStdString();
-
         std::vector<std::string> codigo;
 
         codigo = tokenizar(strCodigo, " ");

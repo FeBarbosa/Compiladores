@@ -9,6 +9,8 @@
 
 #include <analisadorSintatico.h>
 
+using namespace ll;
+
 namespace Ui {
 class MainWindow;
 }
@@ -24,8 +26,12 @@ public:
     // Divide as entradas
     std::vector<std::string> tokenizar(std::string, char *);
 
+    //analisadorSintatico *analisador;
+
 private slots:
     void on_inserirGramatica_clicked();
+
+    void on_analisar_clicked();
 
 private:
     Ui::MainWindow *ui;

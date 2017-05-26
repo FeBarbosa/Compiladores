@@ -11,6 +11,8 @@
 #include <sstream>
 #include <algorithm>
 #include <deque>
+#include <stack>
+#include <list>
 
 #include "simbolo.h"
 
@@ -25,6 +27,8 @@ namespace ll
     public:
 
         // CONSTRUTORES -----------------------------------------------------------------
+        analisadorSintatico();
+
         analisadorSintatico(const std::vector<std::string>&, const std::vector<std::string>&,
                      const std::vector<std::string>&, const std::string&);
 
@@ -35,6 +39,7 @@ namespace ll
         void calcularFollow();
         std::set<simbolo> calcularFollow(const simbolo&);
         void calcularTabelaSintatica();
+        bool analisarCodigo(std::list<std::string>);
 
         // ATRIBUTOS --------------------------------------------------------------------
         simbolo simboloInicial;

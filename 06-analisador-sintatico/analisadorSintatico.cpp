@@ -7,7 +7,11 @@ namespace ll
 
     simbolo palavraVazia = simbolo(true, "&");
 
+    simbolo cifrao = simbolo(true, "$");
+
     // CONSTRUTOR -----------------------------------------------------------------------
+    analisadorSintatico::analisadorSintatico(){}
+
     analisadorSintatico::analisadorSintatico(const std::vector<std::string> &variaveis,
                                const std::vector<std::string> &terminais ,
                                const std::vector<std::string> &producoes,
@@ -350,7 +354,61 @@ namespace ll
                 }
             }
         }
-     }
+    }
 
+    //----------------------------------------------------------------------------------------
+    bool analisadorSintatico::analisarCodigo(std::list<std::string> codigo)
+    {
+        if(codigo.empty())
+            return true;
+
+        std::stack<simbolo> pilhaDeSimbolos;
+
+        pilhaDeSimbolos.push(cifrao);
+        pilhaDeSimbolos.push(this->simboloInicial);
+
+        codigo.push_back(cifrao);
+
+        while(!pilhaDeSimbolos.empty())
+        {
+
+            if((pilhaDeSimbolos.top().compare(cifrao) == 0) && (codigo.front().compare(cifrao) == 0))
+            {
+                return true;
+            }
+
+            if(pilhaDeSimbolos.top().compare(codigo.front()) == 0)
+            {
+                pilhaDeSimbolos.pop();
+                codigo.pop_front();
+            }
+
+            std::vector<simbolo> producaoAtual;
+
+            for(auto it = this->tabelaSintatica.begin(); it != this->tabelaSintatica.end(); ++it)
+            {
+                if(it->first.compare(pilhaDeSimbolos.top()) == 0)
+                    for(auto it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+                    {
+                        if(it2->first.compare(codigo.front()) == 0)
+                        {
+                            producaoAtual.insert(producaoAtual.begin(), it2->second.begin(), it2->second.end());
+                        }
+                    }
+            }
+
+            if(producaoAtual.empty())
+            {
+                return false;
+            }
+
+            pilhaDeSimbolos.pop();
+
+            if(producaoAtual[0].compare(palavraVazia) != 0)
+                for(int i = producaoAtual.size(); i > 0 ; i--)
+                    pilhaDeSimbolos.push(producaoAtual[i-1]);
+
+        }
+    }
 
 }
