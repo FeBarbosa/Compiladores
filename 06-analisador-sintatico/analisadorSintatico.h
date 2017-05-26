@@ -1,5 +1,5 @@
-#ifndef GRAMATICALL1_H
-#define GRAMATICALL1_H
+#ifndef analisadorSintatico_H
+#define analisadorSintatico_H
 
 #include <vector>
 #include <map>
@@ -18,13 +18,14 @@ namespace ll
 {
 
     using producoes = std::unordered_multimap<simbolo, std::vector<simbolo>>;
+    using tabelaLL1 = std::unordered_map<simbolo, std::unordered_map<simbolo, std::vector<simbolo>>>;
 
-    class gramaticaLL1
+    class analisadorSintatico
     {
     public:
 
         // CONSTRUTORES -----------------------------------------------------------------
-        gramaticaLL1(const std::vector<std::string>&, const std::vector<std::string>&,
+        analisadorSintatico(const std::vector<std::string>&, const std::vector<std::string>&,
                      const std::vector<std::string>&, const std::string&);
 
         // MÉTODOS ----------------------------------------------------------------------
@@ -33,6 +34,7 @@ namespace ll
         std::set<simbolo> calcularFirst(const simbolo&);
         void calcularFollow();
         std::set<simbolo> calcularFollow(const simbolo&);
+        void calcularTabelaSintatica();
 
         // ATRIBUTOS --------------------------------------------------------------------
         simbolo simboloInicial;
@@ -40,10 +42,11 @@ namespace ll
         std::unordered_set<simbolo> conjuntoDeSimbolos;
         std::map<simbolo, std::set<simbolo>> conjuntoFirst;
         std::map<simbolo, std::set<simbolo>> conjuntoFollow;
+        tabelaLL1 tabelaSintatica;
 
     };
 
 }
 
 
-#endif // GRAMATICALL1_H
+#endif // analisadorSintatico_H
