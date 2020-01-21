@@ -1,3 +1,4 @@
 # Compiladores
-Concluir trabalho 4!
-Começar trabalho 5!
+Conjuntos de trabalhos da disciplina Compiladores - UFT. Os trabalhos compreendem a análises lêxica e sintântica (somente front-end). 
+ 
+ 
